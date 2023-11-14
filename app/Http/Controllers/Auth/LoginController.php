@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use DB;
 use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,15 +22,21 @@ class LoginController extends Controller
     public function handleTwitchCallback()
     {
     $user = Socialite::driver('twitch')->user();
-    $create = User::where('email', $user->email)->first();
-    if($create==null){
-        User::create($create);
-        event(new Registered($create)); 
+    $check = User::where('email', $user->email)->first();
+    if($check==null){
+        $create = ([
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => Hash::make('123456'),
+            'twitch' => 1,
+        ]);
+        DB::table('users')->insert($create);
+        $check = User::where('email', $user->email)->first();
+        Auth::login($check);
     }
-
-    Auth::login($create);
+    else{
+        Auth::login($check);
+    }
     return redirect("http://localhost:3000");
-    // Xử lý thông tin người dùng và đăng nhập vào ứng dụng Laravel
-    // Ví dụ: kiểm tra xem người dùng đã tồn tại trong CSDL, sau đó tạo hoặc cập nhật thông tin.
     }
 }

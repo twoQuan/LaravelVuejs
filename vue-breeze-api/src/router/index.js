@@ -31,6 +31,12 @@ const routes = [
         name: "ResetPassword",
         component: () => import("../components/ResetPassword.vue"),
     },
+    {
+        path: '/:username',
+        name: 'twitch',
+        component: () => import('../components/twitchchannel.vue'),
+        props: true,
+    },
 ]
 const router = createRouter({
 
