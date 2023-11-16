@@ -1,3 +1,13 @@
+<script setup>
+import { ref,onMounted} from "vue";
+import {useAuthStore} from "../stores/auth.js";
+
+const authStore = useAuthStore();
+
+onMounted(async ()=>{
+    authStore.getUser();
+})
+</script>
 <template>
 <div class="container mx-auto flex flex-wrap items-center justify-between">
       <iframe
