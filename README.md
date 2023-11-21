@@ -1,7 +1,6 @@
 # LaravelVuejs
 - Clone project: git clone https://github.com/twoQuan/LaravelVuejs.git
-- Open CMD on project directory and run this command: docker-compose build
+- Open CMD on project directory,builds the images and Starts the containers: docker-compose up --build
 - Install package: docker-compose exec laravel.test composer install
-- Migrate: docker-compose exec laravel.test php artisan migrate
-- Next: docker-compose up
+- Restart laravel container: docker-compose restart laravel.test
 - server running on localhost:3000
