@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\Auth\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
@@ -39,3 +40,8 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::get('/auth/twitch', 'App\Http\Controllers\Auth\LoginController@redirectToTwitch');
 Route::get('/auth/twitch/callback', 'App\Http\Controllers\Auth\LoginController@handleTwitchCallback');
 Route::get('/users', [UserController::class, 'index']);
+Route::put('/profile', [ProfileController::class, 'store'])
+                ->name('changeprofile');
+Route::put('/changepass', [ProfileController::class, 'editpass'])
+                ->name('changepass');                
+            

@@ -45,6 +45,22 @@ export const useAuthStore = defineStore("auth",{
 
 
         },
+        async handleProfile(data){
+            await this.getToken();
+            try {
+                await axios.put("/profile",{
+                    name:data.name,
+                    email:data.email,
+                    phone:data.phone,
+                    address:data.address,
+                });
+                this.router.push("/profile")
+            }catch (error){
+                if(error.response.status ===422){
+                    this.authErrors = error.response.data.errors
+                }
+            }
+        },
         async handleRegister(data){
             await this.getToken();
             try {
@@ -78,13 +94,18 @@ export const useAuthStore = defineStore("auth",{
                 }
             }
         },
-        async handleResetPassword(resetData) {
+        async handleResetPassword(data){
+            await this.getToken();
             try {
-                const response = await axios.post("/reset-password", resetData);
-                this.authStatus = response.data.status;
-            } catch (error) {
-                if (error.response.status === 422) {
-                    this.authErrors = error.response.data.errors;
+                await axios.put("/changepass",{
+                    email:data.email,
+                    password: data.password,
+                    password_confirmation:data.password_confirmation
+                });
+                this.router.push("/profile")
+            }catch (error){
+                if(error.response.status ===422){
+                    this.authErrors = error.response.data.errors
                 }
             }
         },
