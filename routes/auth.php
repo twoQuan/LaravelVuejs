@@ -44,4 +44,5 @@ Route::put('/profile', [ProfileController::class, 'store'])
                 ->name('changeprofile');
 Route::put('/changepass', [ProfileController::class, 'editpass'])
                 ->name('changepass');                
-            
+Route::get('/profile/getvideo', [ProfileController::class, 'getvideo'])
+                ->name('getvideo');        

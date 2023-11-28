@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.10",
         "laravel/tinker": "^2.8",
+        "romanzipp/laravel-twitch": "^4.6",
         "socialiteproviders/twitch": "^5.3"
     },
     "require-dev": {

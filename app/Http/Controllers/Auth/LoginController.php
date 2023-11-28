@@ -39,4 +39,5 @@ class LoginController extends Controller
     }
     return redirect("http://localhost:3000/");
     }
+
 }
