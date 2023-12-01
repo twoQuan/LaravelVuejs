@@ -47,7 +47,7 @@ class ProfileController extends Controller
 
         return response()->noContent();
     }
-    public function getvideo(Request $request): Response{
+    public function refreshVideo(Request $request): Response{
         $twitch = new Twitch;
 
         $twitch->setClientId('8sqhlarka9oxunw13cqe20jncim7n0');
@@ -71,10 +71,25 @@ class ProfileController extends Controller
                 }
             }
         }
-    
+        
         for ($i = 0; $i< 5;$i++ ){
             $videosid[$i] = $videos->data()[$i]->id;
         }
-        return response($videosid);
+        //save video id to database
+        $user = User::where("name","=",$request->username)->first();
+        $user->twitch_videos = $videosid;
+        $user->save();
+        
+        return response()->noContent();
+    }
+    public function getVideo(Request $request): Response{
+        $user = User::where("name","=",$request->username)->first();
+        return response($user->twitch_videos);
+    }
+    public function editVideo(Request $request): Response{
+        $user = User::where("name","=",$request->username)->first();
+        $user->twitch_videos = $request->videos;
+        $user->save();
+        return response()->noContent();
     }
 }

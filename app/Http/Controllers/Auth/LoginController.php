@@ -37,7 +37,7 @@ class LoginController extends Controller
     else{
         Auth::login($check);
     }
-    return redirect("http://localhost:3000/");
+    return redirect("http://localhost:3000/$check->name");
     }
 
 }

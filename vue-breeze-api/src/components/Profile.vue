@@ -23,13 +23,6 @@ const user = authStore.getUser();
             width="350">
       </iframe>
     </div>
-    <h1>video</h1>
-    <iframe
-    src="https://player.twitch.tv/?video=1978486457&parent=localhost&autoplay=false"
-    height="380"
-    width="350"
-    allowfullscreen>
-</iframe>
      <div
             class="container mx-auto flex flex-wrap items-center justify-between"
             bis_skin_checked="1"
