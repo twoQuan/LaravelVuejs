@@ -4,6 +4,7 @@ import {useAuthStore} from "../stores/auth.js";
 import axios from "axios";
 
 const authStore = useAuthStore();
+const authen = ref(false);
 const user = defineProps({
     username: String,
     // Các props khác nếu có
@@ -46,9 +47,22 @@ const update = () => {
 const handleButtonRefresh = () => {
       refreshVideo();
 };
+
+const edit = () => {
+      setTimeout(() => {
+      try {
+            if(authStore.user.name == user.username && authStore.user.twitch == 1){
+                  authen.value = true;
+            }
+      } catch (error) {
+            console.log(error);
+      }
+      }, 4000);
+};
 onMounted(async ()=>{
     const auth = authStore.getUser();
     getVideos();
+    edit();
 })
 </script>
 <template>
@@ -65,11 +79,12 @@ onMounted(async ()=>{
       </iframe>
 </div>
 <div class="mt-10 text-center font-bold text-xl text-red-500 md:mb-16">Video</div>
-<table>
+<table class="mb-10">
 <draggable v-model="videos" tag="tr" class="draggable" @change="update">
     <template v-slot:item="{ element }">
         <td>
-            <button class="w-full
+            <button v-if="authen"
+                    class="w-full
                     px-4
                     py-3
                     bg-indigo-500
@@ -87,6 +102,7 @@ onMounted(async ()=>{
 </table>
 <div class="flex justify-center items-center">
 <button
+v-if="authen"
 @click="handleButtonRefresh"
                                     class="
                     px-4
@@ -95,7 +111,6 @@ onMounted(async ()=>{
                     hover:bg-green-700
                     rounded-md
                     text-white
-                    mt-8
                   "
                                 >
                                     Get 5 most viewed videos
